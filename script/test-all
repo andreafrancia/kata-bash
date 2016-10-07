@@ -1,0 +1,44 @@
+#!/bin/bash
+
+add() {
+    local numbers
+
+    local numbers_in_line
+    while IFS=',' read -ra numbers_in_line
+    do
+        numbers=("${numbers[@]}" "${numbers_in_line[@]}") 
+    done <<< "$1"
+
+    local sum=0
+    for number in "${numbers[@]}"
+    do
+        ((sum+=number))
+    done
+    echo $sum 
+    return
+}
+
+assert_output() {
+    expected_output="$1"; shift
+    local command="$1"
+
+    local actual_output="$(eval "$command")"
+    if [[ $actual_output == $expected_output ]]
+    then
+        printf "%s\n" "ok - $command"
+    else
+        printf "%s\n" "not ok - $command"
+        printf "%s\n" "expected: $expected_output"
+        printf "%s\n" "     got: $actual_output"
+        diff -u <(echo "$expected_output") <(echo "$actual_output")
+    fi
+}
+
+assert_output 1 'add 1'
+assert_output 2 'add 2'
+assert_output 3 'add "1,2"'
+assert_output 10 'add "1,2,3,4"'
+assert_output 15 'add "1,2,3,4
+5
+"'
+

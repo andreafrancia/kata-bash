@@ -8,13 +8,27 @@ assert_equal() {
 
 add-numbers() {
     IFS=, read -ra numbers <<< "$1"
-    local sum=0
     for number in "${numbers[@]}"
+    do
+        echo "$number"
+    done | sum-stdin-lines
+}
+
+sum-stdin-lines() {
+    local sum=0
+    while read -r number
     do
         ((sum=sum+number))
     done
     echo "$sum"
 }
+
+assert_equal "600" "$(
+echo "100
+200
+300
+" | sum-stdin-lines 
+)"
 
 assert_equal 1 "$(
 add-numbers "1"
@@ -36,7 +50,3 @@ assert_equal '10' "$(
 add-numbers "1,2,3,4"
 )"
 
-# assert_equal '3' "$(
-# add-numbers "1
-# 2"
-# )"

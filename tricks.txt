@@ -9,4 +9,7 @@ print_stack_trace() {
     done
 } 
 
+# is script sourced?
+[[ "${BASH_SOURCE[0]}" != "${0}" ]] && echo "script ${BASH_SOURCE[0]} is being sourced ..."
+
 -eof

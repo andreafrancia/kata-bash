@@ -1,0 +1,12 @@
+# la sberla
+script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# print stack trace in bash
+print_stack_trace() {
+    echo "Stack trace:"
+    for (( i=1; i<${#FUNCNAME[@]}; i++)); do
+        echo " ${FUNCNAME[$i]}(${BASH_SOURCE[$i]}:${BASH_LINENO[$i-1]})"
+    done
+} 
+
+-eof

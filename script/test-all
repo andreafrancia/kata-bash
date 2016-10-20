@@ -1,9 +1,0 @@
-#!/bin/bash
-
-assert_equal() {
-    local expected="$1"
-    local actual="$2"
-    diff <( echo "$expected" ) <( echo "$actual" )
-}
-
-assert_equal "fake result - 1,2,3,4" "$(bin/add "1,2,3,4")"

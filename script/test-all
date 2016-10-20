@@ -1,0 +1,15 @@
+#!/bin/bash
+
+greenbar_on_command() {
+    command="$1"
+    "$command"
+    exit_code="$?"
+    if [[ "$exit_code" == 0 ]]
+    then
+        echo "$(tput setaf 2)"'PASSED'"$(tput sgr0)"
+    else
+        echo "$(tput setaf 1)"'FAILED'"$(tput sgr0)"
+    fi
+}
+
+greenbar_on_command true

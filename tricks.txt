@@ -17,4 +17,17 @@ print_stack_trace() {
 echo "$(tput setaf 2)green$(tput sgr0)"
 echo "$(tput setaf 1)red  $(tput sgr0)"
 
+# greenbar
+greenbar_on_command() {
+    command="$1"
+    "$command"
+    exit_code="$?"
+    if [[ "$exit_code" == 0 ]]
+    then
+        echo "$(tput setaf 2)"'PASSED'"$(tput sgr0)"
+    else
+        echo "$(tput setaf 1)"'FAILED'"$(tput sgr0)"
+    fi
+}
+
 -eof

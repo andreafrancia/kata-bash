@@ -12,4 +12,9 @@ print_stack_trace() {
 # is script sourced?
 [[ "${BASH_SOURCE[0]}" != "${0}" ]] && echo "script ${BASH_SOURCE[0]} is being sourced ..."
 
+# green and red
+
+echo "$(tput setaf 2)green$(tput sgr0)"
+echo "$(tput setaf 1)red  $(tput sgr0)"
+
 -eof

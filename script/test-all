@@ -1,0 +1,43 @@
+#!/bin/bash
+
+trap print_red_or_green_bar EXIT
+print_red_or_green_bar() {
+    if [[ "$any_failure" == true ]]
+    then
+        echo "$(tput setaf 1)FAIL$(tput sgr0)"
+    else
+        echo "$(tput setaf 2)PASS$(tput sgr0)"
+    fi
+}
+
+assert_equal() {
+    if [[ "$1" != "$2" ]]
+    then
+        >&2 echo "Failed at line: ${BASH_LINENO[0]}"
+        >&2 echo "Expected: $1"
+        >&2 echo "     got: $2"
+        expected="$1"
+        actual="$2"
+        declare -p expected
+        declare -p actual
+        any_failure=true
+        return 1
+    fi
+}
+
+assert_equal 1 1
+assert_equal 2 2 
+
+adder() {
+    if [[ "$1" == 10 ]]
+    then
+        echo 10
+    else
+        echo 0
+    fi
+}
+
+assert_equal 0 "$(adder '')"
+assert_equal 10 "$(adder '10')"
+
+

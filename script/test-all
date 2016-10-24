@@ -29,15 +29,23 @@ assert_equal 1 1
 assert_equal 2 2 
 
 adder() {
-    if [[ "$1" == 10 ]]
-    then
-        echo 10
-    else
-        echo 0
-    fi
+    local text="$1"
+
+    IFS=, read -ra numbers <<< "$text" 
+
+    local sum=0
+    for number in "${numbers[@]}"; do
+        ((sum+=number))
+    done
+    echo "$sum"
 }
 
 assert_equal 0 "$(adder '')"
 assert_equal 10 "$(adder '10')"
+assert_equal 7 "$(adder '3,4')"
+assert_equal 13 "$(adder '3,4,6')"
+assert_equal 20 "$(adder '3,4,6,7')"
+
+
 
 

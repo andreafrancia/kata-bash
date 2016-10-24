@@ -1,4 +1,5 @@
 #!/bin/bash
+source bin/adder
 
 trap print_red_or_green_bar EXIT
 print_red_or_green_bar() {
@@ -28,24 +29,13 @@ assert_equal() {
 assert_equal 1 1
 assert_equal 2 2 
 
-adder() {
-    local text="$1"
-
-    IFS=, read -ra numbers <<< "$text" 
-
-    local sum=0
-    for number in "${numbers[@]}"; do
-        ((sum+=number))
-    done
-    echo "$sum"
-}
-
 assert_equal 0 "$(adder '')"
 assert_equal 10 "$(adder '10')"
 assert_equal 7 "$(adder '3,4')"
 assert_equal 13 "$(adder '3,4,6')"
 assert_equal 20 "$(adder '3,4,6,7')"
 
-
-
+assert_equal '' "$(source bin/adder)"
+assert_equal '0' "$(bin/adder)"
+assert_equal '100' "$(bin/adder "10,20,30,40" )"
 

@@ -21,7 +21,7 @@ print_stack_trace() {
 } 
 
 # is script sourced?
-[[ "${BASH_SOURCE[0]}" != "${0}" ]] && echo "script ${BASH_SOURCE[0]} is being sourced ..."
+[[ "${BASH_SOURCE[0]}" == "${0}" ]] && : script executed
 
 # green and red
 

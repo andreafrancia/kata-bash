@@ -1,3 +1,14 @@
+# green bar on exit 
+trap print_red_or_green_bar EXIT
+print_red_or_green_bar() {
+    if [[ "$?" == 0 ]]
+    then
+        echo "$(tput setaf 2)PASS$(tput sgr0)"
+    else
+        echo "$(tput setaf 1)FAIL$(tput sgr0)"
+    fi
+}
+
 # la sberla
 script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 

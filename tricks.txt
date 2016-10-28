@@ -20,8 +20,9 @@ print_stack_trace() {
     done
 } 
 
-# is script sourced?
-[[ "${BASH_SOURCE[0]}" == "${0}" ]] && : script executed
+# run main function only when the script it's executed, not when it is scripted
+
+    [[ "${BASH_SOURCE[0]}" == "$0" ]] && main "$@"
 
 # green and red
 
@@ -40,5 +41,13 @@ greenbar_on_command() {
         echo "$(tput setaf 1)"'FAILED'"$(tput sgr0)"
     fi
 }
+
+# Echo to stderr
+
+>&2 echo "Failed at line: ${BASH_LINENO[0]}"
+
+# Splitting di una stringa:
+
+IFS=, read -ra array_with_values <<< "$string_of_comma_separated_values" 
 
 -eof

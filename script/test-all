@@ -1,0 +1,25 @@
+#!/bin/bash
+
+the_test_function_was_run=false
+the_test_function() {
+    the_test_function_was_run=true
+}
+
+function_to_run=
+suite-add() {
+    function_to_run="$1"
+}
+
+suite-run() {
+    "$function_to_run"
+}
+
+test_output="$(
+echo "$the_test_function_was_run"
+suite-add the_test_function
+suite-run
+echo "$the_test_function_was_run"
+)"
+
+diff -y <(echo "$test_output") - <<< 'false
+true' && echo "$(tput setaf 2)PASSED$(tput sgr0)" || echo "$(tput setaf 1)FAILED$(tput sgr0)"

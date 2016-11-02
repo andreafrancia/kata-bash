@@ -1,13 +1,11 @@
 KATA in BASH
-
-Risolvo un kata (esercizio di programmazione)
-in Bash
-usando Test Driven Development
-costruendo il framework di test da zero
-
-il kata è lo String Calculator (adattato da http://osherove.com/tdd-kata-1/)
-
-Ecco l'esercizio:
+ - Risolvo un kata (esercizio di programmazione)
+ - in Bash
+ - usando Test Driven Development
+ - costruendo il framework di test da zero
+L'esercizio:
+ - il kata è lo String Calculator (adattato da http://osherove.com/tdd-kata-1/)
+ - eccolo:
  - Create a simple String calculator with a method int Add(string numbers).
  - The method can take 0, 1 or 2 numbers, and will return their sum
  - An empty string it will return 0
@@ -17,7 +15,6 @@ Ecco l'esercizio:
  - Allow the Add method to handle an unknown amount of numbers
  - Allow the Add method to handle new lines between numbers (instead of commas)
  - Example (d): "1\n2,3"  will equal 6
-
 Metodo di risoluzione:
  - sviluppo incrementale: svilupperò una feature alla volta
  - todo-list: manterrò una todo-list con la lista le cose ancora da fare
@@ -25,6 +22,6 @@ Metodo di risoluzione:
  - test-first: scrivo un test rosso prima di implementare la feature
  - userò spesso il pattern Fake It ('Til You Make It) per passare velocemente al verde
  - refactor dopo il verde: appena una feature passa applico il refactor per togliere la duplicazione
- - refactor prima del verde: prima di implementare la prossima feature potrei fare refactor per facilitare l'inserimento della feature successiva
+ - refactor prima del rosso: prima di implementare la prossima feature potrei fare refactor per facilitare l'inserimento della feature successiva
 
 -EOF

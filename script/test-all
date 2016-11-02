@@ -1,4 +1,6 @@
 #!/bin/bash
+source bin/add
+
 print-result() {
     local exit_code="$?"
     if [[ "$exit_code" == 0 ]]
@@ -8,15 +10,6 @@ print-result() {
         echo "$(tput setaf 1)FAIL$(tput sgr0)"
     fi
     return "$exit_code"
-}
-
-add() {
-    IFS=, read -ra numbers <<< "$1"
-    local sum=0
-    for number in "${numbers[@]}"; do
-        sum=$((sum+number))
-    done
-    echo "$sum"
 }
 
 assert-equals() {

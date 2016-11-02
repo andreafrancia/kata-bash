@@ -1,3 +1,32 @@
+In realtà ho preparato una cosa che si chiama "slides". È un file di testo dove
+c'è scritto cosa faremo, si chiama slides.txt.
+
+    $ ls slides.txt
+    $ wc -l slides.txt
+    27 slides.txt
+    
+Contiene 27 slides, però non posso farvele vedere con Powerpoint o con Keynote,
+sarebbe contro le regole. Quindi quello che farò e farvi vedere si può costruire
+in bash un piccolo sistema per vedere le slide.
+
+Uso mapfile che è un feature nuova di Bash 4, se usate Linux avete la Bash 4, se
+usate Mac non c'è e dovete installarla con brew.
+
+    $ mapfile slides <slides.txt
+
+In questo modo abbiamo caricato il contenuto del file slides.txt dentro un array
+nella Bash. La Bash ha anche gli array. Per esempio possiamo vedere la prima
+slide:
+
+    $ echo ${slides[0]}
+
+Adesso è un attimo creare un sistema che fa vedere le slide ecco:
+
+    $ for slide in "${slides[@]}"; do dialog --msgbox "$slide" 0 0; done
+
+Con 
+
+
 todo list
 
  - usare una todo list dall'inizio

@@ -1,0 +1,34 @@
+#!/bin/bash
+print-result() {
+    local exit_code="$?"
+    if [[ "$exit_code" == 0 ]]
+    then
+        echo "$(tput setaf 2)PASS$(tput sgr0)"
+    else
+        echo "$(tput setaf 1)FAIL$(tput sgr0)"
+    fi
+    return "$exit_code"
+}
+
+add() {
+    IFS=, read -ra numbers <<< "$1"
+    local sum=0
+    for number in "${numbers[@]}"; do
+        sum=$((sum+number))
+    done
+    echo "$sum"
+}
+
+assert-equals() {
+    local expected="$1"; shift
+    local actual="$1"; shift
+    diff <(echo "$expected") <(echo "$actual")
+}
+
+assert-equals "1" "$(add "1")"
+assert-equals "2" "$(add "2")"
+assert-equals "3" "$(add "1,2")"
+assert-equals "6" "$(add "1,2,3")"
+assert-equals "10" "$(add "1,2,3,4")"
+
+print-result

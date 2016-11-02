@@ -24,9 +24,6 @@ Adesso è un attimo creare un sistema che fa vedere le slide ecco:
 
     $ for slide in "${slides[@]}"; do dialog --msgbox "$slide" 0 0; done
 
-Con 
-
-
 todo list
 
  - usare una todo list dall'inizio

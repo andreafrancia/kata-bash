@@ -1,3 +1,5 @@
+# Introduzione
+
 In realtà ho preparato una cosa che si chiama "slides". È un file di testo dove
 c'è scritto cosa faremo, si chiama slides.txt.
 
@@ -23,6 +25,9 @@ slide:
 Adesso è un attimo creare un sistema che fa vedere le slide ecco:
 
     $ for slide in "${slides[@]}"; do dialog --msgbox "$slide" 0 0; done
+
+# Demo
+
 
 todo list
 

@@ -3,9 +3,7 @@ KATA in BASH
  - in Bash
  - usando Test Driven Development
  - costruendo il framework di test da zero
-L'esercizio:
- - il kata è lo String Calculator (adattato da http://osherove.com/tdd-kata-1/)
- - eccolo:
+ - L'esercizio è adattato dal kata String Calculator (http://osherove.com/tdd-kata-1/)
  - Create a simple String calculator with a method int Add(string numbers).
  - The method can take 0, 1 or 2 numbers, and will return their sum
  - An empty string it will return 0
@@ -23,5 +21,4 @@ Metodo di risoluzione:
  - userò spesso il pattern Fake It ('Til You Make It) per passare velocemente al verde
  - refactor dopo il verde: appena una feature passa applico il refactor per togliere la duplicazione
  - refactor prima del rosso: prima di implementare la prossima feature potrei fare refactor per facilitare l'inserimento della feature successiva
-
 -EOF

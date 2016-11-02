@@ -87,4 +87,12 @@ greenbar_on_command() {
 
 IFS=, read -ra array_with_values <<< "$string_of_comma_separated_values" 
 
+# Scrivere una stringa centrata
+
+display_center(){
+    line="$1"
+    columns="$(tput cols)"
+    printf "%*s\n" $(( (${#line} + columns) / 2)) "$line"
+}
+
 -eof

@@ -1,1 +1,30 @@
-true
+#!/bin/bash
+
+print-red-or-green-bar() {
+    exit_code="$?"
+    if [[ "$exit_code" != 0 ]]
+    then
+        echo "$(tput setaf 1)FAIL$(tput sgr0)"
+    else
+        echo "$(tput setaf 2)PASS$(tput sgr0)"
+    fi
+
+    return "$exit_code"
+}
+
+assert-equal() {
+    local exptected_output="$1"; shift
+    local actual_output="$1"
+    diff <(echo "$exptected_output") <(echo "$actual_output")
+}
+
+add() {
+    IFS=, read -ra numbers <<< "$1"
+    echo "$((numbers[0]+numbers[1]))"
+}
+
+assert-equal "2" "$(add "2")"
+assert-equal "4" "$(add "4")"
+assert-equal "3" "$(add "1,2")"
+
+print-red-or-green-bar

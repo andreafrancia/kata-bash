@@ -162,6 +162,59 @@ Quindi ora appena faccio
 Mi lancia i test. Ora dovrebbe essere più semplice riconoscere la barra rossa da
 quella verde.
 
+Ora cominciamo con il primo test:
+
+    #!/bin/bash
+
+    add "2" > actual_output.txt
+    cat > expected_output.txt << EOF
+    2
+    EOF
+
+    diff expected_output.txt actual_output.txt 
+
+Per risolverlo:
+
+ - Command not found -> aggiungere add()
+ - diff trova differenze -> aggiungere echo "2" in add()
+
+    add() {
+        echo "2"
+    }
+
+# Primo Refactoring
+
+Quali sono i refactoring che si possono fare?
+
+Estrazione di assert-equal:
+
+    assert-equal() {
+        local exptected_output="$1"; shift
+        local actual_output="$1"
+        diff <(echo "$exptected_output") <(echo "$actual_output")
+    }
+
+    assert-equal "2" "$(add "2")"
+
+Verifica che assert-equal funziona con altri parametri:
+
+    assert-equal "2" "$(add "2")"
+    assert-equal "3" "3"
+
+# Barra rossa o verde
+
+    print-red-or-green-bar() {
+        exit_code="$?"
+        if [[ "$exit_code" != 0 ]]
+        then
+            echo "$(tput setaf 1)FAIL$(tput sgr0)"
+        else
+            echo "$(tput setaf 2)PASS$(tput sgr0)"
+        fi
+    
+        return "$exit_code"
+    }
+
 
 
 todo list

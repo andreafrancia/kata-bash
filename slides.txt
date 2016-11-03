@@ -1,16 +1,14 @@
 KATA in BASH
- - Risolvo un kata (esercizio di programmazione)
- - in Bash
- - usando Test Driven Development
- - costruendo il framework di test da zero
- - L'esercizio è adattato dal kata String Calculator (http://osherove.com/tdd-kata-1/)
- - Create a simple String calculator with a method int Add(string numbers).
- - The method can take 0, 1 or 2 numbers, and will return their sum
- - An empty string it will return 0
- - Example (a): "" will return 0
- - Example (b): "1" will return 1
- - Example (c): "1,2" will return 3
- - Allow the Add method to handle an unknown amount of numbers
- - Allow the Add method to handle new lines between numbers (instead of commas)
- - Example (d): "1\n2,3"  will equal 6
+Risolvo un kata (esercizio di programmazione)
+in Bash
+usando Test Driven Development
+costruendo il framework di test da zero
+L'esercizio è adattato dal kata String Calculator (http://osherove.com/tdd-kata-1/)
+Creare un semplice "String Calculator" con un metodo int Add(string nymbers).
+La stringa contiene numeri separati da virgola, il metodo deve restuire la somma dei numeri.
+Se la stringa è vuota la somma si considera zero (0).
+Esempio: "" restuisce 0
+Esempio: "1" restituisce 1
+Esempio: "1,2" restituisce 3
+Esempio: "1,2,4" restituisce 7
 -EOF

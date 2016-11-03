@@ -5,7 +5,7 @@ c'è scritto cosa faremo, si chiama slides.txt.
 
     $ ls slides.txt
     $ wc -l slides.txt
-    27 slides.txt
+    14 slides.txt
     
 Contiene 27 slides, però non posso farvele vedere con Powerpoint o con Keynote,
 sarebbe contro le regole. Quindi quello che farò e farvi vedere si può costruire
@@ -24,7 +24,7 @@ slide:
 
 Adesso è un attimo creare un sistema che fa vedere le slide ecco:
 
-    $ for slide in "${slides[@]}"; do dialog --msgbox "$slide" 0 0; done
+    $ for slide in "${slides[@]}"; do dialog --msgbox "$slide" 6 60; done
 
 # Demo
 

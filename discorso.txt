@@ -297,4 +297,7 @@ display_center(){
     printf "%*s\n" $(( (${#line} + columns) / 2)) "$line"
 }
 
+# Print me
+
+cat discorso.txt  | iconv -c -f utf-8 -t ISO-8859-1 | a2ps -o- -2m -  --medium=Letter > output.ps ; open output.ps
 -eof

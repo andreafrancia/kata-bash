@@ -215,6 +215,18 @@ Verifica che assert-equal funziona con altri parametri:
         return "$exit_code"
     }
 
+# Altri test
+
+    assert-equal "3" "$(add "1,2")"
+
+E implementazione (già rifattorizzata):
+
+    add() {
+        IFS=, read -ra numbers <<< "$1"
+        echo "$((numbers[0]+numbers[1]))"
+    }
+    
+
 
 
 todo list

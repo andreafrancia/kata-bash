@@ -20,11 +20,16 @@ assert-equal() {
 
 add() {
     IFS=, read -ra numbers <<< "$1"
-    echo "$((numbers[0]+numbers[1]))"
+    local sum=0
+    for n in "${numbers[@]}"; do
+        ((sum+=n))
+    done
+    echo "$sum"
 }
 
 assert-equal "2" "$(add "2")"
 assert-equal "4" "$(add "4")"
 assert-equal "3" "$(add "1,2")"
+assert-equal "6" "$(add "1,2,3")"
 
 print-red-or-green-bar

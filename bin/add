@@ -1,0 +1,21 @@
+#!/bin/bash
+add() {
+    local numbers
+    split-to-number "$1"
+    sum-numbers
+}
+
+sum-numbers() {
+    local sum=0
+    for number in "${numbers[@]}"
+    do
+        ((sum+=number))
+    done
+    echo "$sum"
+}
+
+split-to-number() {
+    IFS=, read -ra numbers <<< "$1"
+}
+
+[[ "$0" == "${BASH_SOURCE[0]}" ]] && add "$@"

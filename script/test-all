@@ -1,0 +1,27 @@
+#!/bin/bash
+source bin/add
+
+print-result() {
+    local exit_code="$?"
+    if [[ "$exit_code" == 0 ]]
+    then
+        echo "$(tput setaf 2)PASS$(tput sgr0)"
+    else
+        echo "$(tput setaf 1)FAIL$(tput sgr0)"
+    fi
+    return "$exit_code"
+}
+
+assert-equal() {
+    local expected="$1"
+    local actual="$2"
+
+    diff -u <(echo "$expected") <(echo "$actual")
+}
+
+assert-equal "1" "$(add "1")"
+assert-equal "3" "$(add "1,2")"
+assert-equal "6" "$(add "1,2,3")"
+assert-equal "" "$(source bin/add)"
+
+print-result

@@ -1,0 +1,18 @@
+ - https://vimeo.com/110140127 - Ignite: Test Driven Development in Bash - Arkadiusz Dziewonski - DevOpsDays Berlin 2014
+ 
+ - http://skybert.net/talks/bash-tdd/
+     - Slide che spiegano TDD su Bash
+     - usa shUnit2
+     - slide fatte con un affare che legge markdown
+ - Bourne Again. Bootstrap a testing framework in BASH
+     - http://www.xpday.net/Xpday2015/XPDays/Program/Friday.html
+     - XP Days 
+     - http://www.xpday.net/Xpday2015/XPDays/Program/Friday.html#session_355
+     - https://github.com/rwestgeest/baunit
+ - Seconda edizione di "Bourne Again. Bootstrap a testing framework in BASH" at XP2016 Edinburgh
+     - http://xp2016.org/cfp/Agenda.html
+     - codice su github: https://github.com/rwestgeest/baunit-xp2016
+ - Qui Rob Westgeest spiega passo/passo
+     - http://www.qwan.eu/2016/05/28/baunit-part-one.html
+     - http://www.qwan.eu/2016/08/08/baunit-part-two.html
+     

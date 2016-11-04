@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+example_test_function() {
+    echo "testing1"
+}
+another_test_function() {
+    echo "testing2"
+}
+
+suite-add() {
+    test_functions+=("$1")
+}
+suite-reset() {
+    test_functions=()
+}
+suite-run-all() {
+    for test_function in "${test_functions[@]}"; do
+        "$test_function"
+    done
+}
+
+assert-equal() {
+    local expected="$1"; shift
+    local actual="$1"; shift
+    [[ "$expected"  == "$actual" ]] || {
+        echo "Expected: $expected"
+        echo "  Actual: $actual"
+    }
+}
+
+suite-add example_test_function
+assert-equal "testing1" "$(suite-run-all)" 
+
+suite-add another_test_function
+assert-equal "testing1
+testing2" "$(suite-run-all)" 
+
+suite-reset
+suite-add another_test_function
+assert-equal "testing2" "$(suite-run-all)" 
+
+

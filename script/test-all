@@ -7,14 +7,16 @@ another_test_function() {
     echo "testing2"
 }
 
+declare -a suite
 suite-add() {
-    test_functions+=("$1")
+    shift
+    suite+=("$1")
 }
 suite-reset() {
-    test_functions=()
+    suite=()
 }
-suite-run-all() {
-    for test_function in "${test_functions[@]}"; do
+suite-run(){
+    for test_function in "${suite[@]}"; do
         "$test_function"
     done
 }
@@ -25,18 +27,44 @@ assert-equal() {
     [[ "$expected"  == "$actual" ]] || {
         echo "Expected: $expected"
         echo "  Actual: $actual"
+        any_failure=true
     }
 }
+report-exit-code() {
+    if [[ $any_failure ]]
+    then
+        return 1
+    fi
+}
 
-suite-add example_test_function
-assert-equal "testing1" "$(suite-run-all)" 
+a=(one two three)
+assert-equal "one" "${a[0]}"
+list="$(
+for i in "${a[@]}"; do
+    echo -n "$i,"
+done)"
+assert-equal "one,two,three," "$list"
 
-suite-add another_test_function
+ref=a
+a_ref="a[@]"
+list_ref="$(
+for i in "${!a_ref}"; do
+    echo -n "$i."
+done)"
+assert-equal "one.two.three." "$list_ref"
+
+suite-add suite example_test_function
+output="$(suite-run)"
+assert-equal "testing1" "$output" 
+
+suite-add suite another_test_function
+output="$(suite-run)"
 assert-equal "testing1
-testing2" "$(suite-run-all)" 
+testing2" "$output" 
 
 suite-reset
-suite-add another_test_function
-assert-equal "testing2" "$(suite-run-all)" 
+suite-add suite another_test_function
+output="$(suite-run)"
+assert-equal "testing2" "$output" 
 
-
+report-exit-code

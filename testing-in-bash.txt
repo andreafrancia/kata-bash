@@ -15,4 +15,5 @@
  - Qui Rob Westgeest spiega passo/passo
      - http://www.qwan.eu/2016/05/28/baunit-part-one.html
      - http://www.qwan.eu/2016/08/08/baunit-part-two.html
-     
+ - https://github.com/bmizerany/roundup
+     - Framework di test che sembra scritto bene.

@@ -5,9 +5,12 @@ usando TDD
 senza usare framework esistenti
 costruendo il framework di testing da zero
 L'esercizio è lo String Calculator (http://osherove.com/tdd-kata-1/)
-Creare un semplice "String Calculator" con un metodo int Add(string numbers).
-La stringa contiene numeri separati da virgola, il metodo deve restuire la somma dei numeri (se la stringa vuota si considera la somma zero).
-Esempio: "" restuisce 0        
+Creare un semplice "String Calculator" 
+con un metodo int Add(string numbers).
+La stringa contiene numeri separati da virgola,
+il metodo deve restuire la somma dei numeri
+(se la stringa vuota si considera la somma zero).
+Esempio: "" restituisce 0        
 Esempio: "1" restituisce 1
 Esempio: "1,2" restituisce 3
 Esempio: "1,2,4" restituisce 7

@@ -32,8 +32,7 @@ Adesso è un attimo creare un sistema che fa vedere le slide ecco:
 
 Con questo ciclo è possibile fare vedere una "slide", una riga, alla vota:
 
-    while read -r line <& 3; do clear; echo "$line"; read; done
-
+    while read -r line <& 3; do clear; echo "$line"; read; done 3<slides.txt
 
 
 # Demo
@@ -176,21 +175,41 @@ Ora cominciamo con il primo test:
 
     #!/bin/bash
 
-    add "2" > actual_output.txt
-    cat > expected_output.txt << EOF
-    2
-    EOF
+    add "2" > actual.txt
+    echo "2" > expected.txt
 
-    diff expected_output.txt actual_output.txt 
+    diff expected.txt actual.txt 
 
-Per risolverlo:
+Il primo errore che viene segnalato è che manca la definzione di "add". Aggiungiamo la funzione:
 
- - Command not found -> aggiungere add()
- - diff trova differenze -> aggiungere echo "2" in add()
+    add() {
+        :
+    }
+
+Non si possono creare funzioni vuote in Bash, la definizione della funzione 
+deve contenere almeno un comando. Il due punti ":" che ho scritto nel corpo 
+della funzione è l'invocazione del comando che non fa nulla. ":" è uno dei 
+comandi built-in nella Bash, posso vedere cosa fa direttamente dall'help della bash:
+
+    bash-4.4$ help :
+    :: :
+        Null command.
+
+        No effect; the command does nothing.
+
+        Exit Status:
+        Always succeeds.
+
+Se rilancio i test ottengo che il problema è che output atteso è diverso da 
+quello ottenuto. Per andare al verde più velocemente possibile (come è 
+richiesto da TDD) uso il "Fake It" e cioè vado a cablare in add() l'output atteso:
 
     add() {
         echo "2"
     }
+
+
+
 
 # Primo Refactoring
 

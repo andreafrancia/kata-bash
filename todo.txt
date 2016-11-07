@@ -1,3 +1,4 @@
+- [ ] chiudere browser/mail
 - [ ] fermare Dropbox/Docker/Creative Cloud
 - [ ] mettere il cellulare in silenzioso
 - [ ] mettere il computer in silenzioso

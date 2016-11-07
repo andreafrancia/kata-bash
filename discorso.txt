@@ -11,6 +11,8 @@ Contiene 27 slides, però non posso farvele vedere con Powerpoint o con Keynote,
 sarebbe contro le regole. Quindi quello che farò e farvi vedere si può costruire
 in bash un piccolo sistema per vedere le slide.
 
+# Far vedere le slides (mapfile)
+
 Uso mapfile che è un feature nuova di Bash 4, se usate Linux avete la Bash 4, se
 usate Mac non c'è e dovete installarla con brew.
 
@@ -25,6 +27,14 @@ slide:
 Adesso è un attimo creare un sistema che fa vedere le slide ecco:
 
     $ for slide in "${slides[@]}"; do dialog --msgbox "$slide" 6 60; done
+
+# Far vedere le slides (exec)
+
+Con questo ciclo è possibile fare vedere una "slide", una riga, alla vota:
+
+    while read -r line <& 3; do clear; echo "$line"; read; done
+
+
 
 # Demo
 

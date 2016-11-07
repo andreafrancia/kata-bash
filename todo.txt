@@ -1,0 +1,24 @@
+- [ ] fermare Dropbox/Docker/Creative Cloud
+- [ ] mettere il cellulare in silenzioso
+- [ ] mettere il computer in silenzioso
+- [ ] fare vedere le "slides"
+- [ ] reset della directory
+- [ ] spiegare il comando da linea di comando bin/add
+- [ ] creare script/test-all
+- [ ] spiegare come si lancia script/test-all da Vim
+- [ ] spiegare come leggere rosso/verde dall'exit code
+- [ ] spiegare come si legge l'exit code da Vim
+- [ ] spiegare "nnoremap ,,"
+- [ ] primo test con diff (con file temporanei espliciti)
+- [ ] usare <(cmd1) invece dei file temporanei espliciti
+- [ ] extract function => assert-equal
+- [ ] messaggio FAIL se exit code diverso da zero
+- [ ] colore rosso per messaggio di FAIL
+- [ ] messaggio PASS colore VERDE
+- [ ] funzione print-results
+- [ ] rimuovere hardcoding da add
+- [ ] supportare due numeri separati da virgola (e.g. "1,2")
+- [ ] supportare tre numeri
+- [ ] supportare un numero indefinito numeri
+- [ ] integrare la funzione in un eseguibile a parte
+- [ ] fine

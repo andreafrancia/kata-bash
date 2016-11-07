@@ -231,7 +231,6 @@ E implementazione (già rifattorizzata):
 
 todo list
 
- - usare una todo list dall'inizio
  - assert-equal
  - messaggio FAIL PASS
  - messaggio FAIL/PASS colorato

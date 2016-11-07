@@ -1,26 +1,26 @@
 # Introduzione
 
-In realtà ho preparato una cosa che si chiama "slides". È un file di testo dove
-c'è scritto cosa faremo, si chiama slides.txt.
+In realtà ho preparato una cosa che si chiama "slides". È un file di testo 
+dove c'è scritto cosa faremo, si chiama slides.txt.
 
     $ ls slides.txt
     $ wc -l slides.txt
     14 slides.txt
     
-Contiene 27 slides, però non posso farvele vedere con Powerpoint o con Keynote,
-sarebbe contro le regole. Quindi quello che farò e farvi vedere si può costruire
-in bash un piccolo sistema per vedere le slide.
+Contiene 27 slides, però non posso farvele vedere con Powerpoint o con
+Keynote, sarebbe contro le regole. Quindi quello che farò e farvi vedere si
+può costruire in bash un piccolo sistema per vedere le slide.
 
 # Far vedere le slides (mapfile)
 
-Uso mapfile che è un feature nuova di Bash 4, se usate Linux avete la Bash 4, se
-usate Mac non c'è e dovete installarla con brew.
+Uso mapfile che è un feature nuova di Bash 4, se usate Linux avete la Bash
+4, se usate Mac non c'è e dovete installarla con brew.
 
     $ mapfile slides <slides.txt
 
-In questo modo abbiamo caricato il contenuto del file slides.txt dentro un array
-nella Bash. La Bash ha anche gli array. Per esempio possiamo vedere la prima
-slide:
+In questo modo abbiamo caricato il contenuto del file slides.txt dentro un
+array nella Bash. La Bash ha anche gli array. Per esempio possiamo vedere
+la prima slide:
 
     $ echo ${slides[0]}
 
@@ -45,9 +45,9 @@ Cosa vogliamo ottenere? Un programma da chiamre in questo modo:
 
     $ bin/add
 
-Che quando viene chiamato restituisce un numero che rappresenta la somma dello
-string calculator. Per esempio se lo chiamo con una sfilza di numeri separati da
-virgola:
+Che quando viene chiamato restituisce un numero che rappresenta la somma
+dello string calculator. Per esempio se lo chiamo con una sfilza di numeri
+separati da virgola:
 
     $ bin/add "1,2,3"
 
@@ -70,26 +70,26 @@ E se lo chiamo così?
 
     $ bin/add ""
 
-Per riuscire a creare questo comando usiamo il Test-Driven Development e quindi
-partiamo dal test.
+Per riuscire a creare questo comando usiamo il Test-Driven Development e
+quindi partiamo dal test.
 
 Io vorrei avere una suite di test da chiamare così:
 
     $ script/test-all
 
-Vorrei che quando la chiamo così mi segnali se tutti i test passano, oppure se
-almeno uno fallisce.
+Vorrei che quando la chiamo così mi segnali se tutti i test passano, oppure
+se almeno uno fallisce.
 
 Se provo a chiamarlo ora cosa mi da?
 
     $ script/test-all
     bash: script/test-all: No such file or directory
 
-Bene questo è il primo test rosso da far passare. La regola del TDD è che quando
-sei in barra rossa devi progredire, se sei capace passando alla barra verde,
-oppure, se non riesci ad arrivare subito al verde, puoi anche passare da barra
-rossa a barra rossa a patto che il messaggio di errore cambi segnando un
-progresso. Io dico che "si cambia gradazione di rosso".
+Bene questo è il primo test rosso da far passare. La regola del TDD è che
+quando sei in barra rossa devi progredire, se sei capace passando alla
+barra verde, oppure, se non riesci ad arrivare subito al verde, puoi anche
+passare da barra rossa a barra rossa a patto che il messaggio di errore
+cambi segnando un progresso. Io dico che "si cambia gradazione di rosso".
 
 In questo caso non si può passare da rosso a verde, però si può cambiare la
 gradazione di rosso.
@@ -99,8 +99,8 @@ gradazione di rosso.
     $ script/test-all
     bash: script/test-all: Permission denied
 
-Adesso il file esiste, solo che non è eseguibile, ci vuole poco per risolvere,
-basta un `chmod`:
+Adesso il file esiste, solo che non è eseguibile, ci vuole poco per
+risolvere, basta un `chmod`:
 
     $ chmod +x script/test-all
     $ script/test-all
@@ -111,12 +111,12 @@ successo esce con exit code uguale a 0:
     $ echo "$?"
     0
 
-Con la notazione "$?" si stampa l'exit code che è 0, in genere, i comandi UNIX
-sono silenziosi se le cose vanno bene o se non ci sono informazioni importanti
-da dare. Per il nostro micro sistema di testing possiamo fare che se non scrive
-niente e l'exit code è 0 vuol dire che tutti i test sono passati. Quindi, adesso
-che non ci sono ancora test ma il comando si può lanciare possiamo dire di
-essere in barra verde.
+Con la notazione "$?" si stampa l'exit code che è 0, in genere, i comandi
+UNIX sono silenziosi se le cose vanno bene o se non ci sono informazioni
+importanti da dare. Per il nostro micro sistema di testing possiamo fare
+che se non scrive niente e l'exit code è 0 vuol dire che tutti i test sono
+passati. Quindi, adesso che non ci sono ancora test ma il comando si può
+lanciare possiamo dire di essere in barra verde.
 
 Ora lo apriamo e cominciamo a modificarlo.
 
@@ -142,34 +142,36 @@ Se invece i test non passano ci fa vedere che l'exit code non è 0:
 
     Press ENTER or type command to continue
     
-Per simulare che un test fallisce usiamo il comando `false`, il comando false è
-un built-in particolare della Bash, che non fa niente ma lo fa fallendo, cioè
-con un exit code diverso da 0.
+Per simulare che un test fallisce usiamo il comando `false`, il comando
+false è un built-in particolare della Bash, che non fa niente ma lo fa
+fallendo, cioè con un exit code diverso da 0.
 
     false
 
-Per ritornare ad uno stato in cui si passa possiamo usare il comando duale: 
+Per ritornare ad uno stato in cui si passa possiamo usare il comando duale:
 true. Il comando true ha sempre successo, cioè termina sempre con exit code
 uguale a 0.
 
-Non è bella da vedere come barra verde, la voglio migliorare un po'. Come prima
-cosa aggiungo il comando clear alla shell, di modo che mi pulisca lo schermo.
+Non è bella da vedere come barra verde, la voglio migliorare un po'. Come
+prima cosa aggiungo il comando clear alla shell, di modo che mi pulisca lo
+schermo.
 
     :!clear; script/test-all
     
-Poi voglio automatizzare il fatto di lanciare i test. Definisco uno shortcut.
+Poi voglio automatizzare il fatto di lanciare i test. Definisco uno
+shortcut.
 
     :nnoremap ,, :wa \| !clear; script/test-all<CR>
 
-Nella definizione dello shortcut ho aggiunto anche il salvataggio automatico dei
-file aperti prima di eseguire i test.
+Nella definizione dello shortcut ho aggiunto anche il salvataggio
+automatico dei file aperti prima di eseguire i test.
 
 Quindi ora appena faccio
 
     ,,
 
-Mi lancia i test. Ora dovrebbe essere più semplice riconoscere la barra rossa da
-quella verde.
+Mi lancia i test. Ora dovrebbe essere più semplice riconoscere la barra
+rossa da quella verde.
 
 Ora cominciamo con il primo test:
 
@@ -180,16 +182,18 @@ Ora cominciamo con il primo test:
 
     diff expected.txt actual.txt 
 
-Il primo errore che viene segnalato è che manca la definzione di "add". Aggiungiamo la funzione:
+Il primo errore che viene segnalato è che manca la definzione di "add".
+Aggiungiamo la funzione:
 
     add() {
         :
     }
 
-Non si possono creare funzioni vuote in Bash, la definizione della funzione 
-deve contenere almeno un comando. Il due punti ":" che ho scritto nel corpo 
-della funzione è l'invocazione del comando che non fa nulla. ":" è uno dei 
-comandi built-in nella Bash, posso vedere cosa fa direttamente dall'help della bash:
+Non si possono creare funzioni vuote in Bash, la definizione della funzione
+deve contenere almeno un comando. Il due punti ":" che ho scritto nel corpo
+della funzione è l'invocazione del comando che non fa nulla. ":" è uno dei
+comandi built-in nella Bash, posso vedere cosa fa direttamente dall'help
+della bash:
 
     bash-4.4$ help :
     :: :
@@ -200,9 +204,10 @@ comandi built-in nella Bash, posso vedere cosa fa direttamente dall'help della b
         Exit Status:
         Always succeeds.
 
-Se rilancio i test ottengo che il problema è che output atteso è diverso da 
-quello ottenuto. Per andare al verde più velocemente possibile (come è 
-richiesto da TDD) uso il "Fake It" e cioè vado a cablare in add() l'output atteso:
+Se rilancio i test ottengo che il problema è che output atteso è diverso da
+quello ottenuto. Per andare al verde più velocemente possibile (come è
+richiesto da TDD) uso il "Fake It" e cioè vado a cablare in add() l'output
+atteso:
 
     add() {
         echo "2"
@@ -229,6 +234,10 @@ Verifica che assert-equal funziona con altri parametri:
 
     assert-equal "2" "$(add "2")"
     assert-equal "3" "3"
+
+# Grazie alla fine
+
+echo "$(tput setaf 2; figlet thank you; tput sgr0)"
 
 # Barra rossa o verde
 
@@ -280,7 +289,8 @@ print_stack_trace() {
     done
 } 
 
-# run main function only when the script it's executed, not when it is scripted
+# run main function only when the script it's executed,
+# not when it is scripted
 
     [[ "${BASH_SOURCE[0]}" == "$0" ]] && main "$@"
 
@@ -319,6 +329,5 @@ display_center(){
 }
 
 # Print me
-
 cat discorso.txt  | iconv -c -f utf-8 -t ISO-8859-1 | a2ps -o- -2m -  --medium=Letter > output.ps ; open output.ps
 -eof

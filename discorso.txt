@@ -229,13 +229,6 @@ E implementazione (già rifattorizzata):
 
 
 
-todo list
-
- - assert-equal
- - messaggio FAIL PASS
- - messaggio FAIL/PASS colorato
- - 
-
 # green bar on exit 
 trap print_red_or_green_bar EXIT
 print_red_or_green_bar() {

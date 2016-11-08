@@ -1,45 +1,66 @@
 # Introduzione
 
-In realtà ho preparato una cosa che si chiama "slides". È un file di testo 
-dove c'è scritto cosa faremo, si chiama slides.txt.
+No potendo portare slides ho scritto le cose che volevo dirvi dentro un file 
+di testo che ho chiamato "slides.txt":
 
     $ ls slides.txt
+    slides.txt
+
+Quindi ho portato un file di testo. Dentro ci sono 17 linee:
+
     $ wc -l slides.txt
-    14 slides.txt
-    
-Contiene 27 slides, però non posso farvele vedere con Powerpoint o con
-Keynote, sarebbe contro le regole. Quindi quello che farò e farvi vedere si
-può costruire in bash un piccolo sistema per vedere le slide.
+    17 slides.txt
 
-# Far vedere le slides (mapfile)
+E ne approfitto per farvi vedere una funzionalità della bash 4: il comando mapfile.
 
-Uso mapfile che è un feature nuova di Bash 4, se usate Linux avete la Bash
+# Il comando mapfile
+
+Il comando mapfile fa parte di Bash 4, se usate Linux avete la Bash
 4, se usate Mac non c'è e dovete installarla con brew.
+
+Praticamente serve per caricare un file dentro un array. Si usa così:
 
     $ mapfile slides <slides.txt
 
-In questo modo abbiamo caricato il contenuto del file slides.txt dentro un
-array nella Bash. La Bash ha anche gli array. Per esempio possiamo vedere
-la prima slide:
+Ora dentro l'array slides ci sono le righe prese dal file. Una linea per ogni
+elemento dell'array.
 
-    $ echo ${slides[0]}
+    $ declare -p slides
+    declare -a slides=([0]=$'KATA in BASH\n' [1]=$'Risolvo un esercizio di programmazione\n' [2]=$'in Bash\n' [3]=$'usando TDD\n' [4]=$'senza usare framework esistenti\n' [5]=$'costruendo il framework di testing da zero\n' [6]=$'L\'esercizio è lo String Calculator (http://osherove.com/tdd-kata-1/)\n' [7]=$'Creare un semplice "String Calculator" \n' [8]=$'con un metodo int Add(string numbers).\n' [9]=$'La stringa contiene numeri separati da virgola,\n' [10]=$'il metodo deve restuire la somma dei numeri\n' [11]=$'(se la stringa vuota si considera la somma zero).\n' [12]=$'Esempio: "" restituisce 0        \n' [13]=$'Esempio: "1" restituisce 1\n' [14]=$'Esempio: "1,2" restituisce 3\n' [15]=$'Esempio: "1,2,4" restituisce 7\n' [16]=$'Fine\n')
 
-Adesso è un attimo creare un sistema che fa vedere le slide ecco:
+Posso vedere quando è grande l'array così:
 
-    $ for slide in "${slides[@]}"; do dialog --msgbox "$slide" 6 60; done
+    $ echo "${#slides[*]}"
 
-# Far vedere le slides (exec)
+Oppure posso vedere una singola slide così:
 
-Con questo ciclo è possibile fare vedere una "slide", una riga, alla vota:
+    $ echo "${slides[0]}"
 
-    while read -r line <& 3; do clear; echo "$line"; read; done 3<slides.txt
+Posso fare anche un ciclo:
 
+    $ for slide in "${slides[@]}"; do echo "$slide"; done
 
-# Demo
+Se ingrandisco i font, abbiamo a disposizione tutto quello che serve per creare un sistema per mostrare delle slides:
+
+    $ for slide in "${slides[@]}"; do echo "$slide" | fmt -w 32; read; done
+
+# Ciclo senza mapfile
+
+Se non si vuole o non si può usare map file lo stesso ciclo si può fare usando
+read.
+
+    $ while read -r line <& 3; do clear; echo "$line"; read; done 3<slides.txt
+
+L'unica accortezza è che bisogna usare un file descriptor di appoggio per fare
+in modo che i due read (quello che legge slides.txt e quello che aspetta che l'utente prema invio) non cerchino di leggere dallo stesso file.
+
+# Reset prima di iniziare
 
 Reset prima di iniziare: 
 
     $ git rm -r bin script && git commit -m "Reset"
+
+# Cosa vogliamo ottenere
 
 Cosa vogliamo ottenere? Un programma da chiamre in questo modo:
 
@@ -56,7 +77,6 @@ programma non c'è ancora:
 
 
     $ bin/add "1,2,3"
-    6
 
 Riassumendo, se lo chiamo così cosa deve restituire?
 
@@ -69,6 +89,8 @@ E se lo chiamo così?
 E se lo chiamo così?
 
     $ bin/add ""
+
+# Partiamo dai test
 
 Per riuscire a creare questo comando usiamo il Test-Driven Development e
 quindi partiamo dal test.
@@ -212,9 +234,6 @@ atteso:
     add() {
         echo "2"
     }
-
-
-
 
 # Primo Refactoring
 

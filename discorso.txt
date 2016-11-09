@@ -318,19 +318,6 @@ print_stack_trace() {
 echo "$(tput setaf 2)green$(tput sgr0)"
 echo "$(tput setaf 1)red  $(tput sgr0)"
 
-# greenbar
-greenbar_on_command() {
-    command="$1"
-    "$command"
-    exit_code="$?"
-    if [[ "$exit_code" == 0 ]]
-    then
-        echo "$(tput setaf 2)"'PASSED'"$(tput sgr0)"
-    else
-        echo "$(tput setaf 1)"'FAILED'"$(tput sgr0)"
-    fi
-}
-
 # Echo to stderr
 
 >&2 echo "Failed at line: ${BASH_LINENO[0]}"
@@ -338,14 +325,6 @@ greenbar_on_command() {
 # Splitting di una stringa:
 
 IFS=, read -ra array_with_values <<< "$string_of_comma_separated_values" 
-
-# Scrivere una stringa centrata
-
-display_center(){
-    line="$1"
-    columns="$(tput cols)"
-    printf "%*s\n" $(( (${#line} + columns) / 2)) "$line"
-}
 
 # Print me
 cat discorso.txt  | iconv -c -f utf-8 -t ISO-8859-1 | a2ps -o- -2m -  --medium=Letter > output.ps ; open output.ps

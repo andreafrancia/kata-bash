@@ -1,0 +1,10 @@
+#!/bin/bash
+if test "$1" == "1,2"
+then
+    echo "3"
+    exit
+fi
+if test -n "$1"
+then
+    echo "$1"
+fi

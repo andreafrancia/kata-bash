@@ -1,3 +1,16 @@
+# Checklist prima di iniziare
+
+- [ ] chiudere browser/mail
+- [ ] fermare Dropbox/Docker/Creative Cloud
+- [ ] mettere il cellulare in silenzioso
+- [ ] mettere il computer in silenzioso
+
+# Checklist "on-stage"
+
+- [ ] fare vedere le "slides"
+- [ ] esecuzione
+- [ ] comando thank you
+
 # Introduzione
 
 No potendo portare slides ho scritto le cose che volevo dirvi dentro un file 
@@ -42,7 +55,7 @@ Posso fare anche un ciclo:
 
 Se ingrandisco i font, abbiamo a disposizione tutto quello che serve per creare un sistema per mostrare delle slides:
 
-    $ for slide in "${slides[@]}"; do echo "$slide" | fmt -w 32; read; done
+    $ for slide in "${slides[@]}"; do clear; tput cup $((LINES/2)) 0; echo $slide | fmt -w $COLUMNS; read; done
 
 # Ciclo senza mapfile
 
@@ -282,11 +295,9 @@ E implementazione (già rifattorizzata):
         IFS=, read -ra numbers <<< "$1"
         echo "$((numbers[0]+numbers[1]))"
     }
-    
 
+# green bar on exit
 
-
-# green bar on exit 
 trap print_red_or_green_bar EXIT
 print_red_or_green_bar() {
     if [[ "$?" == 0 ]]

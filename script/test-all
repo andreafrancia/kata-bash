@@ -19,3 +19,4 @@ Expected: 1
 
 assert_equal "3" "$(bin/add "3")"
 assert_equal "3" "$(bin/add "1,2")"
+assert_equal "6" "$(bin/add "1,2,3")"

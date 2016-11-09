@@ -1,13 +1,29 @@
 #!/bin/bash
-if [[ "$1" == *,* ]]
-then
+
+main() {
+    if [[ -z "$1" ]]
+    then
+        say_nothing
+    else
+        split_numbers "$1"
+        sum-all "${numbers[@]}"
+    fi
+}
+
+say_nothing() {
+    :
+}
+
+split_numbers() {
     IFS=, read -ra numbers <<< "$1"
-    a=${numbers[0]}
-    b=${numbers[1]}
-    echo "$((a+b))"
-    exit
-fi
-if test -n "$1"
-then
-    echo "$1"
-fi
+}
+
+sum-all() {
+    local sum=0
+    for n in "$@"; do
+        ((sum+=n))
+    done
+    echo "$sum"
+}
+
+main "$@"

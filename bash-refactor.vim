@@ -22,7 +22,7 @@ function! BashInlineVariable()
     :normal "ayiw
     " It takes 4 diws to get the variable, equal sign, and surrounding
     " whitespace. I'm not sure why. diw is different from dw in this respect.
-    :normal 2diw
+    :normal df=
     " Delete the expression into the 'b' register
     :normal "bd$
     " Delete the remnants of the line

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+add() {
+    IFS=, read -ra numbers <<< "$1"
+    for number in "${numbers[@]}"
+    do
+        sum=$((sum+number))
+    done
+    echo "$sum"
+}
+add "$@"

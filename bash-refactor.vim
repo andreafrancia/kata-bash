@@ -1,3 +1,36 @@
+function! BashMakeFunction()
+    " save the name under curson in the "a" register
+    normal! "ayiw
+    " write the function
+    " start inserting above the line
+    normal! O
+    " paste the name of the function (from the "a" register)
+    " now we have: function-name
+    normal! "ap
+    " append the "()" and the "{"
+    " now we have: function-name() {
+    normal! a() {
+    " add a line with the semicolon (null command in Bash)
+    " now we have: 
+    "   function-name() {
+    "   :
+    normal! o:
+    " add the closing brace
+    " now we have:
+    "   function-name() {
+    "       :
+    "       }
+    normal! o}
+    " dedent if necessary the closing brace
+    " now we have:
+    "   function-name() {
+    "       :
+    "   }
+    normal! <<
+endfunction
+
+nnoremap ,mf :call BashMakeFunction()<cr>
+
 function! BashExtractVariable()
     let name = input("Variable name: ")
     if name == ''

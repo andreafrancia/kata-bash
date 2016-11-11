@@ -4,11 +4,11 @@ in Bash
 usando TDD
 senza usare framework esistenti
 costruendo il framework di testing da zero
-L'esercizio è lo String Calculator (http://osherove.com/tdd-kata-1/)
-Creare un semplice "String Calculator" 
-con un metodo int Add(string numbers).
-La stringa contiene numeri separati da virgola,
-il metodo deve restuire la somma dei numeri
+L'esercizio è lo String Calculator http://osherove.com/tdd-kata-1/
+Esercizio: Creare una funzione `add`
+L'input è una stringa di numeri.
+I numeri sono separati da virgola.
+La funzione deve restuire la somma dei numeri in input.
 (se la stringa vuota si considera la somma zero).
 Esempio: "" restituisce 0        
 Esempio: "1" restituisce 1

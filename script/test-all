@@ -1,0 +1,40 @@
+#!/bin/bash
+
+assert_equal() {
+    local expected="$1"
+    local actual="$2"
+    if [[ "$expected" != "$actual" ]]
+    then
+        echo "$(tput setaf 1)FAIL$(tput sgr0)"
+        echo "Expected: (($expected))"
+        echo "Got: (($actual))"
+        diff -u <(echo "$expected") <(echo "$actual")
+    else
+        echo "$(tput setaf 2)PASS$(tput sgr0)"
+    fi
+}
+
+add() {
+    local numbers
+    split_into "$1" numbers
+    print_sum_of "${numbers[@]}"
+}
+
+split_into() {
+    IFS=, read -ra "$2" <<< "$1"
+}
+
+print_sum_of() {
+    local sum=
+    for n in "$@"; do
+        ((sum+=n))
+    done
+    echo "$sum"
+}
+
+assert_equal "2" "$(add "2")"
+assert_equal "1" "$(add "1")"
+
+assert_equal "3" "$(add "1,2")"
+assert_equal "5" "$(add "2,3")"
+assert_equal "6" "$(add "1,2,3")"

@@ -13,6 +13,11 @@
 
 # Fare vedere le slides
 
+
+
+
+# Fare vedere le slides
+
 Quella che vedete oggi è una anteprima che farò per una presentazione che devo
 fare alla NoSlidesConf.
 La NoSlidesConf è una conferenza che si terrà a Bologna il sabato 3 dicembre.
@@ -33,8 +38,6 @@ Dentro ci sono 17 righe, ogni riga la voglio mettere in una slide.
     $ wc -l slides.txt
     17 slides.txt
 
-
-
 # Il comando mapfile
 
 Il comando mapfile fa parte di Bash 4, se usate Linux avete la Bash
@@ -50,31 +53,39 @@ elemento dell'array.
     $ declare -p slides
     declare -a slides=([0]=$'KATA in BASH\n' [1]=$'Risolvo un esercizio di programmazione\n' [2]=$'in Bash\n' [3]=$'usando TDD\n' [4]=$'senza usare framework esistenti\n' [5]=$'costruendo il framework di testing da zero\n' [6]=$'L\'esercizio è lo String Calculator (http://osherove.com/tdd-kata-1/)\n' [7]=$'Creare un semplice "String Calculator" \n' [8]=$'con un metodo int Add(string numbers).\n' [9]=$'La stringa contiene numeri separati da virgola,\n' [10]=$'il metodo deve restuire la somma dei numeri\n' [11]=$'(se la stringa vuota si considera la somma zero).\n' [12]=$'Esempio: "" restituisce 0        \n' [13]=$'Esempio: "1" restituisce 1\n' [14]=$'Esempio: "1,2" restituisce 3\n' [15]=$'Esempio: "1,2,4" restituisce 7\n' [16]=$'Fine\n')
 
-Posso vedere quando è grande l'array così:
-
-    $ echo "${#slides[*]}"
-
 Oppure posso vedere una singola slide così:
 
     $ echo "${slides[0]}"
 
-Posso fare anche un ciclo:
+# Far vedere le slide
 
-    $ for slide in "${slides[@]}"; do echo "$slide"; done
+Partire:
 
-Se ingrandisco i font, abbiamo a disposizione tutto quello che serve per creare un sistema per mostrare delle slides:
+    $ slide="Slide da far vedere, ed eventualmente formattare quando è troppo lunga"
 
-    $ for slide in "${slides[@]}"; do clear; tput cup $((LINES/2)) 0; echo $slide | fmt -w $COLUMNS; read; done
+Aggiungere `fmt -w $COLUMNS`:
 
-# Ciclo senza mapfile
+    $ echo "$slide" | fmt -w $COLUMNS
 
-Se non si vuole o non si può usare map file lo stesso ciclo si può fare usando
-read.
+Aggiungere `clear;`
 
-    $ while read -r line <& 3; do clear; echo "$line"; read; done 3<slides.txt
+    $ clear; echo "$slide" | fmt -w $COLUMNS
 
-L'unica accortezza è che bisogna usare un file descriptor di appoggio per fare
-in modo che i due read (quello che legge slides.txt e quello che aspetta che l'utente prema invio) non cerchino di leggere dallo stesso file.
+Aggiungere `tput cup $((LINES/2-1)) 0`:
+
+    $ clear;tput cup $((LINES/2-1)) 0; echo "$slide" | fmt -w $COLUMNS
+
+Aggiungere il colore `tput setaf 5` e `tput sgr0`:
+
+    $ clear;tput setaf 5; tput cup $((LINES/2)) 0; echo "$slide" | fmt -w $COLUMNS; tput sgr0
+
+Aggiungere read:
+
+    $ clear;tput setaf 5; tput cup $((LINES/2)) 0; echo "$slide" | fmt -w $COLUMNS; tput sgr0; read
+    
+Aggiungere il ciclo: `for slide in "${slides[@]}" do` e `done`
+
+    $ for slide in ${slides[@]}; do clear;tput setaf 5; tput cup $((LINES/2)) 0; echo "$slide" | fmt -w $COLUMNS; tput sgr0; read; done
 
 # Reset prima di iniziare
 
@@ -348,4 +359,15 @@ IFS=, read -ra array_with_values <<< "$string_of_comma_separated_values"
 
 # Print me
 cat discorso.txt  | iconv -c -f utf-8 -t ISO-8859-1 | a2ps -o- -2m -  --medium=Letter > output.ps ; open output.ps
--eof
+
+# Esempio che usa due diversi stream di input per comandi diversi
+
+Se non si vuole o non si può usare map file lo stesso ciclo si può fare usando
+read.
+
+    $ while read -r line <& 3; do clear; echo "$line"; read; done 3<slides.txt
+
+L'unica accortezza è che bisogna usare un file descriptor di appoggio per fare
+in modo che i due read (quello che legge slides.txt e quello che aspetta che l'utente prema invio) non cerchino di leggere dallo stesso file.
+
+#eof

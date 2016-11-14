@@ -11,20 +11,29 @@
 - [ ] esecuzione
 - [ ] comando thank you
 
-# Introduzione
+# Fare vedere le slides
 
-No potendo portare slides ho scritto le cose che volevo dirvi dentro un file 
-di testo che ho chiamato "slides.txt":
+Quella che vedete oggi è una anteprima che farò per una presentazione che devo
+fare alla NoSlidesConf.
+La NoSlidesConf è una conferenza che si terrà a Bologna il sabato 3 dicembre.
+La caratteristica principale di quella conferenza è che sono ammessi solo talk
+"hands-on" cioè dove si fa vedere quello che si fa direttamente sul computer.
+Per questo sono vietate le slides, niente PowerPoint, niente Keynote.
+
+Io però ho pensato che se creo il sistema di raffigurazione delle slides da
+zero usando la Bash sia accetabile.
+
+Qui ho un file di cui vorrei farvi vedere il contenuto.
 
     $ ls slides.txt
     slides.txt
 
-Quindi ho portato un file di testo. Dentro ci sono 17 linee:
+Dentro ci sono 17 righe, ogni riga la voglio mettere in una slide.
 
     $ wc -l slides.txt
     17 slides.txt
 
-E ne approfitto per farvi vedere una funzionalità della bash 4: il comando mapfile.
+
 
 # Il comando mapfile
 

@@ -8,7 +8,7 @@ L'esercizio è lo String Calculator http://osherove.com/tdd-kata-1/
 Esercizio: Creare una funzione `add`
 L'input è una stringa di numeri.
 I numeri sono separati da virgola.
-La funzione deve restuire la somma dei numeri in input.
+La funzione deve restituire la somma dei numeri in input.
 (se la stringa vuota si considera la somma zero).
 Esempio: "" restituisce 0        
 Esempio: "1" restituisce 1

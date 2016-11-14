@@ -4,6 +4,7 @@
 - [ ] fermare Dropbox/Docker/Creative Cloud
 - [ ] mettere il cellulare in silenzioso
 - [ ] mettere il computer in silenzioso
+- [ ] lanciare Bash 4.4 senza powerline
 
 # Checklist "on-stage"
 

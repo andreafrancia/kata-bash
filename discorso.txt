@@ -20,12 +20,13 @@ Reset prima di iniziare:
 
 # Fare vedere le slides
 
-Quella che vedete oggi è una anteprima che farò per una presentazione che devo
-fare alla NoSlidesConf.
-La NoSlidesConf è una conferenza che si terrà a Bologna il sabato 3 dicembre.
-La caratteristica principale di quella conferenza è che sono ammessi solo talk
-"hands-on" cioè dove si fa vedere quello che si fa direttamente sul computer.
-Per questo sono vietate le slides, niente PowerPoint, niente Keynote.
+Quella che vedete oggi è una anteprima che farò per una presentazione che
+devo fare alla NoSlidesConf.
+La NoSlidesConf è una conferenza che si terrà a Bologna il sabato 3
+dicembre. La caratteristica principale di quella conferenza è che sono 
+ammessi solo talk "hands-on" cioè dove si fa vedere quello che si fa 
+direttamente sul computer. Per questo sono vietate le slides, niente 
+PowerPoint, niente Keynote.
 
 Io però ho pensato che se creo il sistema di raffigurazione delle slides da
 zero usando la Bash sia accetabile.
@@ -49,8 +50,8 @@ Praticamente serve per caricare un file dentro un array. Si usa così:
 
     $ mapfile slides <slides.txt
 
-Ora dentro l'array slides ci sono le righe prese dal file. Una linea per ogni
-elemento dell'array.
+Ora dentro l'array slides ci sono le righe prese dal file. Una linea per 
+ogni elemento dell'array.
 
     $ declare -p slides
     declare -a slides=([0]=$'KATA in BASH\n' [1]=$'Risolvo un esercizio di programmazione\n' [2]=$'in Bash\n' [3]=$'usando TDD\n' [4]=$'senza usare framework esistenti\n' [5]=$'costruendo il framework di testing da zero\n' [6]=$'L\'esercizio è lo String Calculator (http://osherove.com/tdd-kata-1/)\n' [7]=$'Creare un semplice "String Calculator" \n' [8]=$'con un metodo int Add(string numbers).\n' [9]=$'La stringa contiene numeri separati da virgola,\n' [10]=$'il metodo deve restuire la somma dei numeri\n' [11]=$'(se la stringa vuota si considera la somma zero).\n' [12]=$'Esempio: "" restituisce 0        \n' [13]=$'Esempio: "1" restituisce 1\n' [14]=$'Esempio: "1,2" restituisce 3\n' [15]=$'Esempio: "1,2,4" restituisce 7\n' [16]=$'Fine\n')
@@ -363,12 +364,13 @@ cat discorso.txt  | iconv -c -f utf-8 -t ISO-8859-1 | a2ps -o- -2m -  --medium=L
 
 # Esempio che usa due diversi stream di input per comandi diversi
 
-Se non si vuole o non si può usare map file lo stesso ciclo si può fare usando
-read.
+Se non si vuole o non si può usare map file lo stesso ciclo si può fare 
+usando read.
 
     $ while read -r line <& 3; do clear; echo "$line"; read; done 3<slides.txt
 
-L'unica accortezza è che bisogna usare un file descriptor di appoggio per fare
-in modo che i due read (quello che legge slides.txt e quello che aspetta che l'utente prema invio) non cerchino di leggere dallo stesso file.
+L'unica accortezza è che bisogna usare un file descriptor di appoggio per 
+fare in modo che i due read (quello che legge slides.txt e quello che 
+aspetta che l'utente prema invio) non cerchino di leggere dallo stesso file.
 
 #eof

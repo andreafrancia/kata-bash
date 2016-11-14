@@ -11,10 +11,11 @@
 - [ ] esecuzione
 - [ ] comando thank you
 
-# Fare vedere le slides
+# Reset prima di iniziare
 
+Reset prima di iniziare: 
 
-
+    $ git rm -r bin script && git commit -m "Reset"
 
 # Fare vedere le slides
 
@@ -86,12 +87,6 @@ Aggiungere read:
 Aggiungere il ciclo: `for slide in "${slides[@]}" do` e `done`
 
     $ for slide in ${slides[@]}; do clear;tput setaf 5; tput cup $((LINES/2)) 0; echo "$slide" | fmt -w $COLUMNS; tput sgr0; read; done
-
-# Reset prima di iniziare
-
-Reset prima di iniziare: 
-
-    $ git rm -r bin script && git commit -m "Reset"
 
 # Cosa vogliamo ottenere
 

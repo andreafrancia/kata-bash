@@ -103,7 +103,6 @@ separati da virgola:
 mi deve dare la somma, in questo caso "6". Adesso non da niente, perché il
 programma non c'è ancora:
 
-
     $ bin/add "1,2,3"
 
 Riassumendo, se lo chiamo così cosa deve restituire?
@@ -223,17 +222,13 @@ Quindi ora appena faccio
 Mi lancia i test. Ora dovrebbe essere più semplice riconoscere la barra
 rossa da quella verde.
 
-Ora cominciamo con il primo test:
+# Primo test solo per l'esistenza
 
-    #!/bin/bash
+Mi aspetto che il comando esista
 
-    add "2" > actual.txt
-    echo "2" > expected.txt
+    add
 
-    diff expected.txt actual.txt 
-
-Il primo errore che viene segnalato è che manca la definzione di "add".
-Aggiungiamo la funzione:
+Fallisce, lo risolvo aggiugendo:
 
     add() {
         :
@@ -254,6 +249,16 @@ della bash:
         Exit Status:
         Always succeeds.
 
+
+# Ora verifichiamo l'output 
+
+Ora cominciamo con il primo test:
+
+    add "2" > actual.txt
+    echo "2" > expected.txt
+
+    diff expected.txt actual.txt 
+
 Se rilancio i test ottengo che il problema è che output atteso è diverso da
 quello ottenuto. Per andare al verde più velocemente possibile (come è
 richiesto da TDD) uso il "Fake It" e cioè vado a cablare in add() l'output
@@ -265,7 +270,7 @@ atteso:
 
 # Primo Refactoring
 
-Quali sono i refactoring che si possono fare?
+Quali sono i refactorig che si possono fare?
 
 Estrazione di assert-equal:
 
@@ -286,9 +291,9 @@ Verifica che assert-equal funziona con altri parametri:
 
 echo "$(tput setaf 2; figlet thank you; tput sgr0)"
 
-# Barra rossa o verde
+# Print test results
 
-    print-red-or-green-bar() {
+    print-test-results() {
         exit_code="$?"
         if [[ "$exit_code" != 0 ]]
         then
@@ -334,12 +339,11 @@ print_stack_trace() {
     done
 } 
 
-# run main function only when the script it's executed,
-# not when it is scripted
+# run main function only on script execution
 
     [[ "${BASH_SOURCE[0]}" == "$0" ]] && main "$@"
 
-# green and red
+# Print green and red text
 
 echo "$(tput setaf 2)green$(tput sgr0)"
 echo "$(tput setaf 1)red  $(tput sgr0)"
@@ -353,6 +357,7 @@ echo "$(tput setaf 1)red  $(tput sgr0)"
 IFS=, read -ra array_with_values <<< "$string_of_comma_separated_values" 
 
 # Print me
+
 cat discorso.txt  | iconv -c -f utf-8 -t ISO-8859-1 | a2ps -o- -2m -  --medium=Letter > output.ps ; open output.ps
 
 # Esempio che usa due diversi stream di input per comandi diversi

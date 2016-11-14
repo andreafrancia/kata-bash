@@ -14,27 +14,15 @@ assert_equal() {
     fi
 }
 
-add() {
-    local numbers
-    split_into "$1" numbers
-    print_sum_of "${numbers[@]}"
-}
+source bin/add
 
-split_into() {
-    IFS=, read -ra "$2" <<< "$1"
-}
-
-print_sum_of() {
-    local sum=
-    for n in "$@"; do
-        ((sum+=n))
-    done
-    echo "$sum"
-}
-
+assert_equal "" "$(add)"
 assert_equal "2" "$(add "2")"
 assert_equal "1" "$(add "1")"
 
 assert_equal "3" "$(add "1,2")"
 assert_equal "5" "$(add "2,3")"
 assert_equal "6" "$(add "1,2,3")"
+
+assert_equal "6" "$(bin/add "1,2,3")"
+assert_equal "" "$(source bin/add)"

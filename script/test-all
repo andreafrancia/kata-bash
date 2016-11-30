@@ -1,0 +1,45 @@
+#!/bin/bash
+print_suite_result() {
+    echo 
+    if [[ -z $any_failure ]]
+    then
+        tput setaf 2
+        echo "ALL TEST PASSED"
+        tput sgr0
+    else
+        tput setaf 1
+        echo "SOME TEST FAILED"
+        tput sgr0
+    fi
+}
+
+assert_equals() {
+    local expected="$1"
+    local actual="$2"
+    if diff <(echo "$expected") <(echo "$actual")
+    then
+        tput setaf 2
+        echo "PASS"
+        tput sgr0
+    else
+        any_failure=true
+        tput setaf 1
+        echo "FAIL"
+        tput sgr0
+    fi
+}
+
+source bin/add
+
+assert_equals "0" "$(add "")"
+assert_equals "1" "$(add "1")"
+assert_equals "2" "$(add "2")"
+assert_equals "3" "$(add "1,2")"
+assert_equals "5" "$(add "2,3")"
+assert_equals "6" "$(add "1,2,3")"
+
+assert_equals "10" "$(add "1,2,3,4")"
+assert_equals "10" "$(bin/add "1,2,3,4")"
+assert_equals "" "$(source bin/add)"
+
+print_suite_result

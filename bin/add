@@ -1,0 +1,20 @@
+#!/bin/bash
+
+add() {
+    split_to_array "$1" numbers
+    sum_all_numbers "${numbers[@]}"
+}
+
+split_to_array() {
+    IFS=, read -ra "$2" <<< "$1"
+}
+
+sum_all_numbers() {
+    local sum=0
+    for n in "$@"; do
+        ((sum+=n))
+    done
+    echo "$sum"
+}
+
+[[ "$BASH_SOURCE" == "$0" ]] && add "$@"

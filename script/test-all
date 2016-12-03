@@ -23,17 +23,12 @@ assert_equals() {
 }
 
 add() {
-    if [[ "$1" == *","* ]]
-    then
-        IFS=, read -ra numbers <<< "$1"
-        local sum=0
-        for number in "${numbers[@]}"; do
-            ((sum+=number))
-        done
-        echo "$sum"
-        return
-    fi
-    echo "$1"
+    IFS=, read -ra numbers <<< "$1"
+    local sum=0
+    for number in "${numbers[@]}"; do
+        ((sum+=number))
+    done
+    echo "$sum"
 }
 
 assert_equals "1" "$(add "1")"

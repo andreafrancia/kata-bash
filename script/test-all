@@ -1,0 +1,47 @@
+#!/bin/bash
+print_result() {
+    if [[ $? == 0 ]]
+    then
+        echo "$(tput setaf 2)TUTTO OK$(tput sgr0)"
+    else
+        echo "$(tput setaf 1)PROBLEMS$(tput sgr0)"
+    fi
+}
+
+assert_equals() {
+    local expected="$1"
+    local actual="$2"
+    echo "$expected" > expected.txt
+    echo "$actual" > actual.txt
+
+    if diff expected.txt actual.txt
+    then
+        echo "$(tput setaf 2)PASS$(tput sgr0)"
+    else 
+        echo "$(tput setaf 1)FAIL$(tput sgr0)"
+    fi
+}
+
+add() {
+    if [[ "$1" == *","* ]]
+    then
+        IFS=, read -ra numbers <<< "$1"
+        local sum=0
+        for number in "${numbers[@]}"; do
+            ((sum+=number))
+        done
+        echo "$sum"
+        return
+    fi
+    echo "$1"
+}
+
+assert_equals "1" "$(add "1")"
+assert_equals "2" "$(add "2")"
+
+assert_equals "3" "$(add "1,2")"
+assert_equals "5" "$(add "2,3")"
+
+assert_equals "6" "$(add "1,2,3")"
+
+print_result

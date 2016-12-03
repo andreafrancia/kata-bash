@@ -1,6 +1,6 @@
 #!/bin/bash
 print_result() {
-    if [[ $? == 0 ]]
+    if [[ -z $any_problem ]]
     then
         echo "$(tput setaf 2)TUTTO OK$(tput sgr0)"
     else
@@ -11,14 +11,15 @@ print_result() {
 assert_equals() {
     local expected="$1"
     local actual="$2"
-    echo "$expected" > expected.txt
-    echo "$actual" > actual.txt
 
-    if diff expected.txt actual.txt
+    if diff <(echo "$expected") <(echo "$actual")
     then
         echo "$(tput setaf 2)PASS$(tput sgr0)"
+        true
     else 
         echo "$(tput setaf 1)FAIL$(tput sgr0)"
+        any_problem=true
+        false
     fi
 }
 
@@ -31,6 +32,8 @@ add() {
     echo "$sum"
 }
 
+assert_equals "0" "$(add "")"
+
 assert_equals "1" "$(add "1")"
 assert_equals "2" "$(add "2")"
 
@@ -38,5 +41,6 @@ assert_equals "3" "$(add "1,2")"
 assert_equals "5" "$(add "2,3")"
 
 assert_equals "6" "$(add "1,2,3")"
+assert_equals "10" "$(add "1,2,3,4")"
 
 print_result

@@ -1,4 +1,5 @@
 - io voglio lanciare i test con un solo comando: script/test-all
+- però lo voglio lanciare dal mio editor
 - script/test-all deve avere exit code 0 on success, <>0 on failure
 - posso chiamare la funzione add
 - voglio avere nel mio framework di test una specie di assert_equals

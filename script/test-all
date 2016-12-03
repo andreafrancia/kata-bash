@@ -23,14 +23,7 @@ assert_equals() {
     fi
 }
 
-add() {
-    IFS=, read -ra numbers <<< "$1"
-    local sum=0
-    for number in "${numbers[@]}"; do
-        ((sum+=number))
-    done
-    echo "$sum"
-}
+source bin/add
 
 assert_equals "0" "$(add "")"
 
@@ -42,5 +35,8 @@ assert_equals "5" "$(add "2,3")"
 
 assert_equals "6" "$(add "1,2,3")"
 assert_equals "10" "$(add "1,2,3,4")"
+
+assert_equals "10" "$(bin/add "1,2,3,4")"
+assert_equals '' "$(source bin/add)"
 
 print_result

@@ -1,0 +1,13 @@
+#!/bin/bash
+add() {
+    IFS="," read -ra numbers <<< "$1"
+    local sum=0
+    lista=( "pippo" "pluto" "pape rino")
+    for number in "${numbers[@]}"
+    do
+        ((sum+=number))
+    done
+    echo "$sum"
+    return
+}
+[[ $BASH_SOURCE == $0 ]] && add "$@"

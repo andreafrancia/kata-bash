@@ -1,7 +1,6 @@
 # Kata in Bash
 
-[![Video No SlidesConf](https://img.youtube.com/vi/N8up3OxfnCQ/0.jpg)](https://www.youtube.com/watch?v= N8up3OxfnCQ)
-
+[![Video No SlidesConf](https://img.youtube.com/vi/N8up3OxfnCQ/0.jpg)](https://www.youtube.com/watch?v=N8up3OxfnCQ)
 
 Ho eseguito questa performance ad una serie di conferenze:
 
